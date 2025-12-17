@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.vite/
+public/solar-dist/assets/**
+.env
+.DS_Store
+.vscode/
+npm-debug.log*
+yarn-error.log*
+/*.log
+/*.local
+.idea/
+
+# optional: track large assets with LFS instead of committing
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.glb filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+
+node_modules/
+/dist
+/.env
+.DS_Store

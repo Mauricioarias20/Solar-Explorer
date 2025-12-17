@@ -1,0 +1,11 @@
+Model Information:
+* title:	Mercury
+* source:	https://sketchfab.com/3d-models/mercury-345e3b507a0e4fcdaffa0d32da6c2152
+* author:	Danny.Gallegos (https://sketchfab.com/Danny.Gallegos)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Mercury" (https://sketchfab.com/3d-models/mercury-345e3b507a0e4fcdaffa0d32da6c2152) by Danny.Gallegos (https://sketchfab.com/Danny.Gallegos) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto - Fondo Video / Imagen / Música</title>
+    <!-- Font for the title -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/styles.css">
+  </head>
+  <body>
+    <div id="bg-container">
+      <!-- Video fondo (archivo local) -->
+      <video id="bg-video" autoplay muted loop playsinline>
+        <!-- Usando tu video local -->
+        <source src="/assets/video/Esta_es_una_202512150833.mp4" type="video/mp4">
+        Tu navegador no soporta video.
+      </video>
+      <!-- Imagen de fondo (oculta hasta modo estático) -->
+      <img id="bg-image" src="/assets/images/bg-photo.jpg" alt="Fondo estático" hidden>
+
+      <!-- Header title -->
+      <header id="site-header">
+        <h1 id="site-title">Welcome to Solar Explore</h1>
+        <div class="title-dec"></div>
+      </header>
+
+      <!-- Center hint text -->
+      <div id="center-hint">"-scroll-in to explore"</div>
+    </div>
+
+    <div id="ui">
+      <button id="toggle-mode">Static mode</button>
+      <button id="audio-toggle">Music config</button>
+      <div id="music-controls" hidden>
+        <input id="audio-volume" type="range" min="0" max="100" value="50" aria-label="Music volume">
+        <button id="audio-mute">Mute music</button>
+      </div>
+    </div>
+
+    <audio id="bg-audio" loop>
+      <!-- Audio de fondo local -->
+      <source src="/assets/audio/bg-music.mp3" type="audio/mpeg">
+      Tu navegador no soporta audio.
+    </audio>
+
+    <!-- Loader overlay (galaxy spinner in outline style) -->
+    <div id="loader" role="status" aria-live="polite">
+      <div class="loader-stars" aria-hidden="true">
+        <!-- much denser starfield with varied sizes & staggered delays -->
+        <span class="star big" style="--x:50%;--y:26%;--s:4.0px;--d:0ms"></span>
+        <span class="star" style="--x:60%;--y:34%;--s:1.6px;--d:80ms"></span>
+        <span class="star" style="--x:44%;--y:40%;--s:2.4px;--d:140ms"></span>
+        <span class="star" style="--x:32%;--y:60%;--s:3.0px;--d:60ms"></span>
+        <span class="star" style="--x:70%;--y:66%;--s:1.8px;--d:200ms"></span>
+        <span class="star" style="--x:82%;--y:20%;--s:1.4px;--d:260ms"></span>
+        <span class="star" style="--x:12%;--y:18%;--s:2.0px;--d:120ms"></span>
+        <span class="star small" style="--x:22%;--y:32%;--s:1.2px;--d:300ms"></span>
+        <span class="star" style="--x:40%;--y:16%;--s:2.6px;--d:420ms"></span>
+        <span class="star" style="--x:78%;--y:48%;--s:2.0px;--d:240ms"></span>
+        <span class="star big" style="--x:68%;--y:12%;--s:4.6px;--d:200ms"></span>
+        <span class="star" style="--x:54%;--y:72%;--s:1.8px;--d:520ms"></span>
+        <span class="star" style="--x:86%;--y:76%;--s:2.2px;--d:340ms"></span>
+        <span class="star small" style="--x:8%;--y:74%;--s:1.0px;--d:920ms"></span>
+        <span class="star" style="--x:48%;--y:86%;--s:2.6px;--d:640ms"></span>
+        <span class="star" style="--x:26%;--y:52%;--s:1.8px;--d:360ms"></span>
+        <span class="star" style="--x:36%;--y:22%;--s:1.8px;--d:280ms"></span>
+        <span class="star" style="--x:58%;--y:56%;--s:2.4px;--d:480ms"></span>
+        <span class="star" style="--x:14%;--y:50%;--s:2.2px;--d:560ms"></span>
+        <span class="star" style="--x:92%;--y:30%;--s:1.6px;--d:860ms"></span>
+        <span class="star small" style="--x:70%;--y:82%;--s:1.0px;--d:760ms"></span>
+        <span class="star" style="--x:62%;--y:8%;--s:2.0px;--d:220ms"></span>
+        <span class="star" style="--x:38%;--y:78%;--s:1.8px;--d:520ms"></span>
+        <span class="star" style="--x:10%;--y:12%;--s:1.6px;--d:160ms"></span>
+        <span class="star" style="--x:20%;--y:8%;--s:1.2px;--d:100ms"></span>
+        <span class="star" style="--x:80%;--y:8%;--s:1.6px;--d:140ms"></span>
+        <span class="star" style="--x:90%;--y:14%;--s:1.4px;--d:180ms"></span>
+        <span class="star" style="--x:58%;--y:86%;--s:1.8px;--d:700ms"></span>
+        <span class="star" style="--x:46%;--y:6%;--s:2.2px;--d:260ms"></span>
+        <span class="star" style="--x:34%;--y:86%;--s:2.0px;--d:540ms"></span>
+        <span class="star" style="--x:28%;--y:8%;--s:1.6px;--d:320ms"></span>
+        <span class="star small" style="--x:12%;--y:86%;--s:1.0px;--d:820ms"></span>
+        <span class="star" style="--x:88%;--y:62%;--s:2.2px;--d:360ms"></span>
+        <span class="star" style="--x:66%;--y:56%;--s:1.6px;--d:300ms"></span>
+        <span class="star" style="--x:44%;--y:56%;--s:1.4px;--d:220ms"></span>
+        <span class="star" style="--x:52%;--y:46%;--s:1.4px;--d:180ms"></span>
+        <span class="star big" style="--x:56%;--y:20%;--s:4.0px;--d:200ms"></span>
+        <span class="star" style="--x:6%;--y:40%;--s:1.6px;--d:420ms"></span>
+        <span class="star" style="--x:96%;--y:50%;--s:1.6px;--d:520ms"></span>
+        <span class="star" style="--x:44%;--y:30%;--s:1.8px;--d:240ms"></span>
+        <span class="star" style="--x:30%;--y:36%;--s:1.4px;--d:120ms"></span>
+        <span class="star" style="--x:54%;--y:10%;--s:1.6px;--d:300ms"></span>
+        <span class="star" style="--x:72%;--y:90%;--s:1.8px;--d:680ms"></span>
+      </div>
+
+      <!-- Galaxy spinner (vector reproduction of the provided style) -->
+      <svg id="loader-svg" width="56" height="56" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g fill="none" stroke="#eaeaea" stroke-linecap="round" stroke-linejoin="round">
+          <!-- outer ring (thicker) -->
+          <circle class="outer" cx="50" cy="50" r="28" stroke-width="3" />
+
+          <!-- horizontal wings (top and bottom, aligned) -->
+          <path class="wing-top" d="M12 50 C28 44 72 44 88 50" stroke-width="3" />
+          <path class="wing-bottom" d="M12 50 C28 56 72 56 88 50" stroke-width="3" />
+
+          <!-- inner rings to create the double-lined look -->
+          <circle class="inner-1" cx="50" cy="50" r="22" stroke-width="2.2" />
+          <circle class="inner-2" cx="50" cy="50" r="18" stroke-width="1.4" />
+
+          <!-- small decorative gaps: draw short masks in background color to emulate the openings -->
+          <path d="M20 46 C26 44 34 44 42 46" stroke="#000" stroke-width="4" stroke-linecap="round" />
+          <path d="M58 54 C66 56 74 56 82 54" stroke="#000" stroke-width="4" stroke-linecap="round" />
+        </g>
+
+        <!-- solid core circle -->
+        <g class="core">
+          <circle cx="50" cy="50" r="6.5" fill="#ffffff" stroke="#eaeaea" stroke-width="1.6" />
+        </g>
+      </svg>
+
+      <span class="visually-hidden">Cargando</span>
+    </div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

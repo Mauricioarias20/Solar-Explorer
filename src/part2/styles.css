@@ -1,0 +1,78 @@
+html, body, #app { height: 100%; margin: 0; }
+body { background: black; overflow: hidden; }
+canvas { display: block; }
+
+/* .info removed — diagnostic overlay hidden */
+.info { display: none; }
+
+/* Título inferior central */
+:root { --entering-icon-size: 36px; }
+
+.entering {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 22px;
+  z-index: 25; /* encima del overlay */
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px; /* reducido */
+  /* Layout as inline-flex to control spacing and vertical alignment when an SVG icon is present */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* slight spacing between text and icon */
+  text-align: center;
+  letter-spacing: 0.2px;
+  user-select: none;
+}
+.entering-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--entering-icon-size); height: var(--entering-icon-size);
+  line-height: 0; /* avoid extra whitespace around the SVG */
+}
+.entering-icon svg { display:block; width:var(--entering-icon-size); height:var(--entering-icon-size); filter: drop-shadow(0 0 6px rgba(0,0,0,0.75)); transform-origin: center center; animation: galaxy-spin 8s linear infinite; }
+.entering-icon img { display:block; width:var(--entering-icon-size); height:var(--entering-icon-size); filter: drop-shadow(0 0 6px rgba(0,0,0,0.75)); transform-origin: center center; animation: galaxy-spin 8s linear infinite; }
+.entering-svg-fallback .entering-icon img { filter: drop-shadow(0 0 6px rgba(255,255,255,0.35)); }
+.entering-text {
+  display: inline-flex;
+  gap: 6px; /* control spacing between the two text spans */
+  align-items: center;
+}
+.entering-black {
+  color: #000000;
+  font-weight: 700;
+  /* contorno blanco marcado */
+  -webkit-text-stroke: 0.8px #ffffff;
+  text-stroke: 0.8px #ffffff;
+  /* múltiples sombras para un contorno más consistente (blanco) */
+  text-shadow:
+    -1px -1px 0 #ffffff,
+     1px -1px 0 #ffffff,
+    -1px  1px 0 #ffffff,
+     1px  1px 0 #ffffff,
+    /* glow amarillo sutil alrededor de cada letra */
+     0 0 8px rgba(255,230,120,0.55),
+     0 0 18px rgba(255,200,90,0.25);
+}
+.entering-gray {
+  color: #000000; /* palabras en negro */
+  font-weight: 600;
+  /* mantener contorno blanco */
+  -webkit-text-stroke: 0.6px #ffffff;
+  text-stroke: 0.6px #ffffff;
+  text-shadow:
+    -1px -1px 0 #ffffff,
+     1px -1px 0 #ffffff,
+    -1px  1px 0 #ffffff,
+     1px  1px 0 #ffffff,
+     0 0 8px rgba(255,230,120,0.45),
+     0 0 14px rgba(255,200,90,0.18);
+}
+
+/* rotation animation for the small icon */
+@keyframes galaxy-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
