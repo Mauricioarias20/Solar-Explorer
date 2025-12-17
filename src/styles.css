@@ -1,0 +1,137 @@
+/* Reset mínimo */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#fff}
+
+/* Contenedor de fondo */
+#bg-container{position:fixed;inset:0;overflow:hidden;z-index:-1}
+#bg-video{position:absolute;top:50%;left:50%;width:100%;height:100%;transform:translate(-50%,-50%);object-fit:cover;min-width:100%;min-height:100%;}
+#bg-image{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;}
+
+/* UI encima del fondo: moved to bottom-left and smaller */
+/* Position controls bottom-right, inset from edge to avoid black bars */
+#ui{position:fixed;right:clamp(16px,6vw,64px);bottom:20px;left:auto;z-index:30;padding:0;display:flex;gap:0.5rem;align-items:center}
+button{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.12);color:#9b9b9b;padding:0.35rem 0.6rem;border-radius:6px;cursor:pointer;font-size:0.85rem}
+button:hover{background:rgba(255,255,255,0.06);transform:translateY(-1px)}
+
+/* Slight shadow to separate from video */
+button{box-shadow:0 4px 12px rgba(0,0,0,0.45)}
+
+/* Volume slider styling */
+/* Music controls panel */
+#music-controls{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,0.45);padding:6px;border-radius:6px;margin-left:6px}
+#music-controls[hidden]{display:none}
+#audio-volume{width:110px;appearance:none;background:transparent}
+#audio-volume::-webkit-slider-runnable-track{height:6px;background:rgba(255,255,255,0.12);border-radius:6px}
+#audio-volume::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border-radius:50%;background:#fff;margin-top:-3px}
+#audio-volume:focus{outline:none}
+#audio-mute{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:#9b9b9b;padding:0.25rem 0.5rem;border-radius:6px;font-size:0.82rem}
+
+
+/* Contenido centrado de ejemplo */
+main{min-height:100vh;display:flex;align-items:center;justify-content:center}
+
+/* Adaptaciones móviles */
+@media (max-width:600px){
+  #ui{flex-direction:column;align-items:flex-start}
+}
+
+/* Top-centered header/title */
+#site-header{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:40;text-align:center;pointer-events:none}
+#site-title{font-family:'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; /* gradient text */
+  background: linear-gradient(180deg, #4a4a4a 0%, #dcdcdc 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight:600; font-size:clamp(12px,1.2vw,16px); letter-spacing:0.4px; text-shadow:none; margin:0; padding:0}
+
+.title-dec{height:8px;margin-top:6px;position:relative}
+.title-dec::before{content:"";display:block;width:180px;max-width:50vw;height:3px;margin:0 auto;border-radius:3px;background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.16))}
+.title-dec::after{content:"";position:absolute;left:50%;transform:translateX(-50%);top:-3px;width:36px;height:6px;background:#fff;border-radius:999px;box-shadow:0 1px 6px rgba(0,0,0,0.35)}
+
+@media (max-width:480px){
+  .title-dec::before{width:140px}
+  .title-dec::after{width:36px;height:6px}
+}
+
+/* Center hint: "-scroll-in to explore" */
+#center-hint{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:36;pointer-events:none;display:inline-block}
+#center-hint{font-family:'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial; color:#9b9b9b;font-weight:600;font-size:clamp(10px,1.2vw,14px);letter-spacing:0.4px;background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.12));padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 18px rgba(0,0,0,0.45);opacity:0}
+
+/* Subtle appear/disappear + float animation */
+@keyframes centerHintIn{
+  0%{opacity:0;transform:translate(-50%,-54%)}
+  50%{opacity:1;transform:translate(-50%,-50%)}
+  100%{opacity:1;transform:translate(-50%,-50%)}
+}
+@keyframes pulseFade{
+  0%{opacity:0}
+  10%{opacity:1}
+  70%{opacity:1}
+  100%{opacity:0}
+}
+@keyframes floatY{0%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-3px)}100%{transform:translate(-50%,-50%) translateY(0)}}
+
+#center-hint{animation:centerHintIn .7s ease both, floatY 6s ease-in-out 0.9s infinite, pulseFade 8s ease-in-out 1s infinite}
+
+@media (max-width:420px){
+  #center-hint{font-size:11px;padding:5px 8px}
+}
+
+/* Loader overlay (galaxy outline style) */
+#loader{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  background:#000; /* solid black */
+  z-index:1200;
+}
+
+#loader[hidden]{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity 200ms ease, visibility 200ms ease;
+}
+
+/* Spinner: rotate one full turn in 2s (single pass) */
+#loader-svg{filter:drop-shadow(0 10px 22px rgba(0,0,0,0.75));transform-origin:50% 50%;animation:loader-spin 2000ms linear 1 forwards}
+@keyframes loader-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Twinkle: faster (900ms) and more intense scale/opactiy */
+.loader-stars{position:absolute;inset:0;pointer-events:none;z-index:1199}
+.loader-stars .star{position:absolute;border-radius:50%;background:radial-gradient(circle,#fff 0%, rgba(255,247,240,0.98) 60%);opacity:0;box-shadow:0 0 6px rgba(255,255,255,0.18);width:var(--s,1.6px);height:var(--s,1.6px);left:var(--x,50%);top:var(--y,50%);transform:scale(0.6);animation:twinkle 900ms cubic-bezier(.2,.9,.2,1) 1 forwards;animation-delay:var(--d,0s)}
+.loader-stars .star.big{width:var(--s,4px);height:var(--s,4px);box-shadow:0 0 18px rgba(255,255,255,0.36)}
+.loader-stars .star.small{width:var(--s,1.0px);height:var(--s,1.0px);box-shadow:0 0 2px rgba(255,255,255,0.12)}
+@keyframes twinkle{0%{opacity:0;transform:scale(0.5)}30%{opacity:1;transform:scale(1.6)}60%{opacity:0.72;transform:scale(1.05)}100%{opacity:0;transform:scale(0.85)}}
+@keyframes twinkle{0%{opacity:0;transform:scale(0.7)}30%{opacity:1;transform:scale(1.04)}60%{opacity:0.6;transform:scale(0.95)}100%{opacity:0;transform:scale(0.85)}}
+
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+/* Scroll-in: zoom toward center and fade out */
+body.scroll-in {
+  /* prevent scroll while animating */
+  overflow: hidden;
+  background: #000; /* ensure black background during and after fade */
+}
+
+/* Elements to scale and fade together (content) */
+body.scroll-in #bg-container,
+body.scroll-in main,
+body.scroll-in #site-header,
+body.scroll-in #center-hint,
+body.scroll-in #ui {
+  transform-origin: 50% 50%;
+  /* stronger zoom and longer transition for a more dramatic effect */
+  transition: transform 1100ms cubic-bezier(.18,.9,.2,1), opacity 1100ms ease;
+  transform: scale(1.25);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Video layer zooms more aggressively and fades to 0 opacity */
+#bg-video{transition:transform 1100ms ease, opacity 1100ms ease;opacity:1;will-change:transform,opacity}
+body.scroll-in #bg-video{transform:scale(1.4);opacity:0;filter:brightness(0.18)}
+
+/* quickly hide loader when scroll-in starts */
+body.scroll-in #loader{opacity:0;visibility:hidden;pointer-events:none;transition:opacity 200ms ease}
+

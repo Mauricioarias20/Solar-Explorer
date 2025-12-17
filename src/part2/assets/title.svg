@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" role="img">
+  <defs>
+    <style>
+      .s{fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+      .f{fill:#ffffff;stroke:#ffffff;stroke-width:2}
+    </style>
+  </defs>
+  <!-- Outer rings -->
+  <circle cx="60" cy="60" r="48" class="s" />
+  <circle cx="60" cy="60" r="36" class="s" />
+  <!-- Central filled planet -->
+  <circle cx="60" cy="60" r="22" class="f" />
+  <!-- Wing-like rings on each side -->
+  <ellipse cx="18" cy="60" rx="26" ry="9" class="s" />
+  <ellipse cx="102" cy="60" rx="26" ry="9" class="s" />
+</svg>
