@@ -303,8 +303,27 @@ window.addEventListener('load', () => {
             try { ev.preventDefault(); (ev as any).stopPropagation(); } catch (e) {}
             try { centerHintEl.classList.add('pressed'); window.setTimeout(() => centerHintEl.classList.remove('pressed'), 220); } catch (e) {}
             try { console.debug('CENTER-HINT: pointer/touch event, invoking startScrollIn'); } catch (e) {}
+            // show a quick toast so users see we received the tap
+            try { showTouchToast('Tapped — launching...'); } catch (e) {}
             try { startScrollIn(); } catch (e) { try { (window as any).__pendingScrollIn = true; } catch(e) {} }
           };
+
+          // small helper to show a temporary toast confirming the tap was received
+          function showTouchToast(msg: string) {
+            try {
+              let t = document.getElementById('touch-toast') as HTMLElement | null;
+              if (!t) {
+                t = document.createElement('div');
+                t.id = 'touch-toast';
+                t.className = 'touch-toast';
+                document.body.appendChild(t);
+              }
+              t.textContent = msg;
+              t.classList.add('show');
+              if ((t as any)._timeout) clearTimeout((t as any)._timeout);
+              (t as any)._timeout = window.setTimeout(() => { try { t && t.classList.remove('show'); } catch (e) {} }, 1200);
+            } catch (e) { /* noop */ }
+          }
           try {
             centerHintEl.addEventListener('pointerdown', activate as EventListener, { passive: false, capture: true, once: true });
             centerHintEl.addEventListener('touchstart', activate as EventListener, { passive: false, capture: true, once: true });
