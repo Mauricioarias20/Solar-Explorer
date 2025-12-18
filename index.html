@@ -29,7 +29,7 @@
         // Inline touch-detection and quick UX for mobile: change text and set a pending flag if user taps
         (function(){
           try {
-            var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints && (navigator as any).msMaxTouchPoints > 0) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
+            var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (typeof navigator.msMaxTouchPoints !== 'undefined' && navigator.msMaxTouchPoints > 0) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
             if (isTouch) {
               document.documentElement.classList.add('is-touch');
               var hint = document.getElementById('center-hint');
@@ -40,8 +40,8 @@
                 hint.setAttribute('role','button');
                 hint.setAttribute('tabindex','0');
                 // If user taps before main bundle loads, set a flag the main script will read
-                hint.addEventListener('click', function(ev){ try { ev.preventDefault(); } catch(e){}; try { if ((window as any).startScrollIn && typeof (window as any).startScrollIn === 'function') { (window as any).startScrollIn(); } else { (window as any).__pendingScrollIn = true; } } catch(e) { (window as any).__pendingScrollIn = true; } try { console.debug('INLINE: center-hint tapped; invoked startScrollIn or set __pendingScrollIn'); } catch(e){}; }, { passive: false, once: true });
-                hint.addEventListener('keydown', function(ev){ if (ev.key === ' ' || ev.key === 'Enter') { try { ev.preventDefault(); } catch(e){}; try { if ((window as any).startScrollIn && typeof (window as any).startScrollIn === 'function') { (window as any).startScrollIn(); } else { (window as any).__pendingScrollIn = true; } } catch(e) { (window as any).__pendingScrollIn = true; } } }, { passive: false, once: true });
+                hint.addEventListener('click', function(ev){ try { ev.preventDefault(); } catch(e){}; try { if (window.startScrollIn && typeof window.startScrollIn === 'function') { window.startScrollIn(); } else { window.__pendingScrollIn = true; } } catch(e) { window.__pendingScrollIn = true; } try { console.debug('INLINE: center-hint tapped; invoked startScrollIn or set __pendingScrollIn'); } catch(e){}; }, { passive: false, once: true });
+                hint.addEventListener('keydown', function(ev){ if (ev.key === ' ' || ev.key === 'Enter') { try { ev.preventDefault(); } catch(e){}; try { if (window.startScrollIn && typeof window.startScrollIn === 'function') { window.startScrollIn(); } else { window.__pendingScrollIn = true; } } catch(e) { window.__pendingScrollIn = true; } } }, { passive: false, once: true });
               }
             }
           } catch(e) { /* noop */ }
