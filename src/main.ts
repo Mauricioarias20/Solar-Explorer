@@ -291,6 +291,14 @@ window.addEventListener('load', () => {
         // noop
       }
 
+      // Expose startScrollIn for inline scripts and listen to a custom event
+      try {
+        (window as any).startScrollIn = startScrollIn;
+        window.addEventListener('trigger-scrollin', () => { try { startScrollIn(); } catch (e) { console.warn('trigger-scrollin failed', e); } });
+      } catch (e) {
+        // noop
+      }
+
       let _scrollDebugLogged = false;
       function onWheel(e: WheelEvent) {
         if (scrollInDone || scrollInInProgress) return;

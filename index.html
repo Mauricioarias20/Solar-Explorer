@@ -40,8 +40,8 @@
                 hint.setAttribute('role','button');
                 hint.setAttribute('tabindex','0');
                 // If user taps before main bundle loads, set a flag the main script will read
-                hint.addEventListener('click', function(ev){ try { ev.preventDefault(); } catch(e){}; (window as any).__pendingScrollIn = true; try { console.debug('INLINE: center-hint tapped; set __pendingScrollIn'); } catch(e){}; }, { passive: false, once: true });
-                hint.addEventListener('keydown', function(ev){ if (ev.key === ' ' || ev.key === 'Enter') { try { ev.preventDefault(); } catch(e){}; (window as any).__pendingScrollIn = true; } }, { passive: false, once: true });
+                hint.addEventListener('click', function(ev){ try { ev.preventDefault(); } catch(e){}; try { if ((window as any).startScrollIn && typeof (window as any).startScrollIn === 'function') { (window as any).startScrollIn(); } else { (window as any).__pendingScrollIn = true; } } catch(e) { (window as any).__pendingScrollIn = true; } try { console.debug('INLINE: center-hint tapped; invoked startScrollIn or set __pendingScrollIn'); } catch(e){}; }, { passive: false, once: true });
+                hint.addEventListener('keydown', function(ev){ if (ev.key === ' ' || ev.key === 'Enter') { try { ev.preventDefault(); } catch(e){}; try { if ((window as any).startScrollIn && typeof (window as any).startScrollIn === 'function') { (window as any).startScrollIn(); } else { (window as any).__pendingScrollIn = true; } } catch(e) { (window as any).__pendingScrollIn = true; } } }, { passive: false, once: true });
               }
             }
           } catch(e) { /* noop */ }
