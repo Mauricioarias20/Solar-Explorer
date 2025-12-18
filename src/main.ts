@@ -295,6 +295,24 @@ window.addEventListener('load', () => {
       try {
         (window as any).startScrollIn = startScrollIn;
         window.addEventListener('trigger-scrollin', () => { try { startScrollIn(); } catch (e) { console.warn('trigger-scrollin failed', e); } });
+
+        // Also attach robust pointer/touch handlers to the center hint so taps reliably invoke the animation
+        const centerHintEl = document.getElementById('center-hint') as HTMLElement | null;
+        if (centerHintEl) {
+          const activate = (ev: Event) => {
+            try { ev.preventDefault(); (ev as any).stopPropagation(); } catch (e) {}
+            try { console.debug('CENTER-HINT: pointer/touch event, invoking startScrollIn'); } catch (e) {}
+            try { startScrollIn(); } catch (e) { try { (window as any).__pendingScrollIn = true; } catch(e) {} }
+          };
+          try {
+            centerHintEl.addEventListener('pointerdown', activate as EventListener, { passive: false, capture: true, once: true });
+            centerHintEl.addEventListener('touchstart', activate as EventListener, { passive: false, capture: true, once: true });
+          } catch (e) {
+            // fallback to click if pointer events are not supported
+            try { centerHintEl.addEventListener('click', activate as EventListener, { passive: false, once: true }); } catch (e) {}
+          }
+        }
+
       } catch (e) {
         // noop
       }
