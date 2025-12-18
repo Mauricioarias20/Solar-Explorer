@@ -301,6 +301,7 @@ window.addEventListener('load', () => {
         if (centerHintEl) {
           const activate = (ev: Event) => {
             try { ev.preventDefault(); (ev as any).stopPropagation(); } catch (e) {}
+            try { centerHintEl.classList.add('pressed'); window.setTimeout(() => centerHintEl.classList.remove('pressed'), 220); } catch (e) {}
             try { console.debug('CENTER-HINT: pointer/touch event, invoking startScrollIn'); } catch (e) {}
             try { startScrollIn(); } catch (e) { try { (window as any).__pendingScrollIn = true; } catch(e) {} }
           };

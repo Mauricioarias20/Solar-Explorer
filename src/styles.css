@@ -58,6 +58,7 @@ main{min-height:100vh;display:flex;align-items:center;justify-content:center}
   #center-hint{pointer-events:auto;cursor:pointer}
   #center-hint:active{transform:translate(-50%,-50%) scale(0.98)}
 }
+#center-hint.pressed{transform:translate(-50%,-50%) scale(0.96);transition:transform 180ms ease}
 #center-hint{font-family:'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial; color:#9b9b9b;font-weight:600;font-size:clamp(10px,1.2vw,14px);letter-spacing:0.4px;background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.12));padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 18px rgba(0,0,0,0.45);opacity:0}
 
 /* Subtle appear/disappear + float animation */
