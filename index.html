@@ -25,6 +25,28 @@
 
       <!-- Center hint text -->
       <div id="center-hint">"-scroll-in to explore"</div>
+      <script>
+        // Inline touch-detection and quick UX for mobile: change text and set a pending flag if user taps
+        (function(){
+          try {
+            var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints && (navigator as any).msMaxTouchPoints > 0) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
+            if (isTouch) {
+              document.documentElement.classList.add('is-touch');
+              var hint = document.getElementById('center-hint');
+              if (hint) {
+                try { hint.textContent = '"tap to explore"'; } catch (e) {}
+                hint.style.pointerEvents = 'auto';
+                hint.style.cursor = 'pointer';
+                hint.setAttribute('role','button');
+                hint.setAttribute('tabindex','0');
+                // If user taps before main bundle loads, set a flag the main script will read
+                hint.addEventListener('click', function(ev){ try { ev.preventDefault(); } catch(e){}; (window as any).__pendingScrollIn = true; try { console.debug('INLINE: center-hint tapped; set __pendingScrollIn'); } catch(e){}; }, { passive: false, once: true });
+                hint.addEventListener('keydown', function(ev){ if (ev.key === ' ' || ev.key === 'Enter') { try { ev.preventDefault(); } catch(e){}; (window as any).__pendingScrollIn = true; } }, { passive: false, once: true });
+              }
+            }
+          } catch(e) { /* noop */ }
+        })();
+      </script>
     </div>
 
     <div id="ui">

@@ -281,6 +281,16 @@ window.addEventListener('load', () => {
         }, SCROLL_DURATION + 40);
       }
 
+      // If a tap happened before this script loaded, trigger the scroll-in now
+      try {
+        if ((window as any).__pendingScrollIn) {
+          console.debug('MAIN: detected pending tap before load, triggering scroll-in');
+          startScrollIn();
+        }
+      } catch (e) {
+        // noop
+      }
+
       let _scrollDebugLogged = false;
       function onWheel(e: WheelEvent) {
         if (scrollInDone || scrollInInProgress) return;
