@@ -306,6 +306,31 @@ window.addEventListener('load', () => {
         }
       });
 
+      // Mobile / touch support: change center hint and allow tap to trigger the scroll-in animation
+      try {
+        const centerHint = document.getElementById('center-hint') as HTMLElement | null;
+        const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || (navigator as any).msMaxTouchPoints > 0) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
+        if (centerHint && isTouchDevice) {
+          // Update text to be clear for touch users
+          try { centerHint.textContent = '"tap to explore"'; } catch {}
+          // Make it interactive on touch devices
+          try {
+            centerHint.style.pointerEvents = 'auto';
+            centerHint.style.cursor = 'pointer';
+            centerHint.setAttribute('role', 'button');
+            centerHint.setAttribute('tabindex', '0');
+            // Use click (works for tap) and support keyboard activation
+            const onActivate = (ev: Event) => { try { ev.preventDefault(); } catch {} ; startScrollIn(); };
+            centerHint.addEventListener('click', onActivate, { once: true, passive: false });
+            centerHint.addEventListener('keydown', (ev: KeyboardEvent) => { if (ev.key === 'Enter' || ev.key === ' ') { try { ev.preventDefault(); } catch {} ; startScrollIn(); } });
+          } catch (e) {
+            // noop
+          }
+        }
+      } catch (e) {
+        // noop
+      }
+
     } catch (err) {
       console.warn('No se pudo comprobar la imagen', err);
     }
