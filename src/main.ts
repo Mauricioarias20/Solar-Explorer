@@ -320,7 +320,7 @@ window.addEventListener('load', () => {
             centerHint.setAttribute('role', 'button');
             centerHint.setAttribute('tabindex', '0');
             // Use click (works for tap) and support keyboard activation
-            const onActivate = (ev: Event) => { try { ev.preventDefault(); } catch {} ; startScrollIn(); };
+            const onActivate = (ev: Event) => { try { ev.preventDefault(); } catch {} ; console.debug('CENTER-HINT: tapped on touch device, starting scroll-in'); startScrollIn(); };
             centerHint.addEventListener('click', onActivate, { once: true, passive: false });
             centerHint.addEventListener('keydown', (ev: KeyboardEvent) => { if (ev.key === 'Enter' || ev.key === ' ') { try { ev.preventDefault(); } catch {} ; startScrollIn(); } });
           } catch (e) {
