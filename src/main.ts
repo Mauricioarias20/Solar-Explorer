@@ -90,9 +90,9 @@ let videoInit = false;
 let audioErrorCount = 0;
 let imageErrorCount = 0;
 const MAX_ERROR_LOGS = 3;
-const VIDEO_SRC = '/src/assets/video/Esta_es_una_202512150833.mp4';
-const AUDIO_SRC = '/src/assets/audio/bg-music.mp3';
-const IMAGE_SRC = '/src/assets/images/bg-photo.jpg';
+const VIDEO_SRC = new URL('./assets/video/Esta_es_una_202512150833.mp4', import.meta.url).href;
+const AUDIO_SRC = new URL('./assets/audio/bg-music.mp3', import.meta.url).href;
+const IMAGE_SRC = new URL('./assets/images/bg-photo.jpg', import.meta.url).href;
 
 window.addEventListener('load', () => {
   // Video: asignar solo si no está inicializado
@@ -199,7 +199,7 @@ window.addEventListener('load', () => {
         else if (imageErrorCount === MAX_ERROR_LOGS + 1) console.warn('Se han suprimido más errores de imagen para evitar spam.');
         if (imageErrorCount > MAX_ERROR_LOGS) {
           image.removeEventListener('error', imageErrorHandler);
-          image.src = '/src/assets/images/placeholder.svg';
+          image.src = new URL('./assets/images/placeholder.svg', import.meta.url).href;
         }
       };
 

@@ -110,7 +110,7 @@ console.log('TITLE: entering element created', entering);
     </svg>`;
   try {
     // Intentamos primero `title.svg`, si no existe probamos `galaxy.svg` y luego cualquier `*.svg` en la carpeta
-    const candidates = ['/src/assets/title.svg', '/src/assets/galaxy.svg'];
+    const candidates = [new URL('../assets/title.svg', import.meta.url).href, new URL('../assets/galaxy.svg', import.meta.url).href];
     let loaded = false;
       for (const c of candidates) {
         try {
