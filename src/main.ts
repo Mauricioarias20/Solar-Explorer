@@ -327,6 +327,34 @@ window.addEventListener('load', () => {
           try {
             centerHintEl.addEventListener('pointerdown', activate as EventListener, { passive: false, capture: true, once: true });
             centerHintEl.addEventListener('touchstart', activate as EventListener, { passive: false, capture: true, once: true });
+
+            // Document-level capture handlers: detect touch/pointer coordinates even if element is obscured
+            const docActivate = (ev: Event) => {
+              try {
+                // Only handle touch-like pointer events
+                let clientX: number | null = null, clientY: number | null = null;
+                if ((window as any).PointerEvent && ev instanceof PointerEvent) {
+                  if ((ev as PointerEvent).pointerType !== 'touch') return;
+                  clientX = (ev as PointerEvent).clientX; clientY = (ev as PointerEvent).clientY;
+                } else if (ev.type === 'touchstart') {
+                  const t = (ev as TouchEvent).touches[0];
+                  if (!t) return;
+                  clientX = t.clientX; clientY = t.clientY;
+                } else {
+                  return;
+                }
+
+                const rect = centerHintEl.getBoundingClientRect();
+                if (clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom) {
+                  try { ev.preventDefault(); (ev as any).stopPropagation(); } catch (e) {}
+                  activate(ev);
+                }
+              } catch (e) { /* noop */ }
+            };
+
+            document.addEventListener('pointerdown', docActivate as EventListener, { passive: false, capture: true, once: true });
+            document.addEventListener('touchstart', docActivate as EventListener, { passive: false, capture: true, once: true });
+
           } catch (e) {
             // fallback to click if pointer events are not supported
             try { centerHintEl.addEventListener('click', activate as EventListener, { passive: false, once: true }); } catch (e) {}
